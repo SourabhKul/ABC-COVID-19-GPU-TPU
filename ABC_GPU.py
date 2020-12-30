@@ -113,7 +113,7 @@ build_graph()
 # ABC inference
 print("Running...")
 max_runs = 30000
-samples_target = 10
+samples_target = 100
 samples_collected = 0
 num_runs = 0
 start_time = time.time()

@@ -119,9 +119,10 @@ num_runs = 0
 start_time = time.time()
 returned_samples = []
 min_distances = []
-tf.profiler.experimental.server.start(6009)
+tf.profiler.experimental.server.start(6009) # performance profiling; comment-out to run without profiling
+# single inference step; repeat until enough samples collected
 for step in range(max_runs):
-    with tf.profiler.experimental.Trace('train', step_num=step, _r=1):
+    with tf.profiler.experimental.Trace('train', step_num=step, _r=1): # performance profiling; comment-out and un-indent block below to run without profiling 
         num_accepted_samples, returned_run_params, min_distance = build_graph()
         samples_collected += num_accepted_samples
         if num_accepted_samples:
@@ -140,6 +141,7 @@ selected_samples = tf.boolean_mask(flattened_samples, tf.reshape(min_distances, 
 
 end_time = time.time()
 
+# Print inference summary
 print("Completed in {0:.3f} seconds\n".format(end_time - start_time))
 print(f"Samples collected: {samples_collected}")
 print(f"Number of runs: {num_runs}")
